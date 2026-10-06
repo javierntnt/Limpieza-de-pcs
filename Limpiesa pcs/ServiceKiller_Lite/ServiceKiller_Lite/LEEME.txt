@@ -1,0 +1,48 @@
+========================================================================
+   LATENCY LABS - SERVICE KILLER LITE
+   Desarrollado por: Don Paquito
+========================================================================
+
+¡Que pasa loquete! 
+
+Si estás leyendo esto, es que quieres dejar de jugar con el PC asfixiado 
+y con tirones. Has venido al sitio correcto. 
+
+Este script está diseñado para matar más de 50 procesos y servicios 
+inútiles de Windows (telemetría, mapas, servicios de red secundaria, etc.) 
+que te están robando FPS y subiendo la latencia de tu procesador.
+
+------------------------------------------------------------------------
+ INSTRUCCIONES DE USO
+------------------------------------------------------------------------
+1. Extrae (descomprime) la carpeta ZIP en tu escritorio. No ejecutes 
+   el script desde dentro del ZIP porque puede fallar.
+2. Haz CLIC DERECHO sobre el archivo "ServiceKiller_Lite.bat".
+3. Selecciona "EJECUTAR COMO ADMINISTRADOR".
+   (Si solo haces doble clic, Windows bloqueará los permisos y 
+   el programa NO HARÁ NADA).
+4. Sigue las instrucciones de la pantalla azul. 
+5. Te recomiendo usar el MODO SEGURO [1]. Es 100% estable y no te 
+   romperá las actualizaciones ni la tienda de Windows.
+6. Reinicia el PC cuando termine.
+
+------------------------------------------------------------------------
+ ¿TE ARREPIENTES? (MODO PÁNICO)
+------------------------------------------------------------------------
+Si por algún casual crees que te falta algún servicio o quieres dejar 
+tu Windows exactamente como venía de fábrica, vuelve a abrir el 
+script como administrador y selecciona la opción [3] MODO PÁNICO. 
+Todo volverá a la normalidad en un segundo.
+
+------------------------------------------------------------------------
+ APOYA EL PROYECTO
+------------------------------------------------------------------------
+Esta herramienta es TOTALMENTE GRATUITA. Si te ha servido para rascar 
+FPS y quitarte el stuttering, invítame a un café en el link de descarga 
+o simplemente déjame 5 estrellas.
+
+No seas fantasma y pásate a saludar:
+- TikTok: @DonPaquitoTV
+- Instagram: @DonPaquitoTV
+
+========================================================================

@@ -1,0 +1,62 @@
+================================================================================
+|                    GUIA DE OPTIMIZACION - WINUTIL (CHRIS TITUS)              |
+================================================================================
+Comando en PowerShell (Como Administrador): 
+  iwr -useb https://christitus.com/win | iex
+
+--------------------------------------------------------------------------------
+[1] TWEAKS ESENCIALES (Recomendado para todas las PCs)
+--------------------------------------------------------------------------------
+[ X ] Create Restore Point        Crea backup antes de tocar nada (¡OBLIGATORIO!)
+[ X ] Run Disk Cleanup            Limpieza profunda del disco duro
+[ X ] Delete Temporary Files      Elimina basura para liberar espacio
+[ X ] Disable Telemetry           Apaga envío de datos a MS (Ahorra recursos)
+[ X ] Disable Activity History    Evita que Windows guarde historial de uso
+[ X ] Disable Location Tracking   Apaga rastreo de GPS/Ubicación (Ahorra CPU)
+[ X ] Disable ConsumerFeatures    Bloquea instalación de apps basura (Candy Crush)
+[ X ] Disable Hibernation         Borra el archivo de hibernación (Libera ~4GB-8GB)
+[ X ] Disable WPBT                Bloquea bloatware de la placa base (Asus, etc.)
+[ X ] Disable Explorer Discovery  Evita escaneo automático de carpetas (Más rápido)
+[ X ] Remove Widgets              Borra panel de noticias (Ahorra mucha RAM)
+[ X ] Set Services to Manual      Pasa servicios automáticos a manual (Arranque rápido)
+
+[ ] Disable Powershell 7 Telemetry  (No es necesario)
+[ ] Enable End Task Right Click     (Opcional, a gusto tuyo)
+
+--------------------------------------------------------------------------------
+[2] TWEAKS AVANZADOS (Cuidado acá, depende del uso de la PC)
+--------------------------------------------------------------------------------
+[ X ] Disable Background Apps       Evita que apps corran de fondo (LIBERA MUCHA RAM)
+[ X ] Disable Fullscreen Opt.       Mejora FPS y latencia en juegos 
+[ X ] Disable Microsoft Copilot     Vuela la IA de la barra de tareas
+[ X ] Edge Debloat                  Quita telemetría y basura de Microsoft Edge
+[ X ] Brave Debloat                 Limpia funciones cripto si usan Brave
+[ X ] Remove Xbox & Gaming Comp.    Vuela la barra Xbox (Ideal si NO juegan o usan Steam)
+[ X ] Set Classic Right-Click       Vuelve al menú contextual de W10 (Más rápido en W11)
+[ X ] Set Display for Performance   Quita animaciones (La PC vuela, pero se ve más fea)
+[ X ] Remove OneDrive               Vuela OneDrive (Ahorra internet y RAM)
+[ X ] Block Razer Installs          Evita que Synapse se instale solo
+[ X ] Remove Gallery/Home           Limpia la barra lateral del explorador de archivos
+[ X ] Prefer IPv4 over IPv6         Prioriza IPv4 para evitar problemas de ping
+
+[ ] Disable IPv6                    (NO - Rompe algunas redes modernas)
+[ ] Disable Storage Sense           (NO - Deja que Windows limpie solo)
+[ ] Remove ALL MS Store Apps        (NO - Borra hasta la calculadora, muy extremo)
+
+--------------------------------------------------------------------------------
+[3] TWEAKS DE PERFIL / UI (Visual y Comodidad)
+--------------------------------------------------------------------------------
+[ X ] Bing Search in Start Menu     Saca la búsqueda de internet del menú inicio (CLAVE)
+[ X ] Recommendations in Start      Saca los anuncios de apps sugeridas del inicio
+[ X ] Remove Settings Home Page     Saca los banners de publicidad en Configuración
+[ X ] Show File Extensions          Muestra extensiones (.exe, .pdf) (SEGURIDAD CLAVE)
+[ X ] Sticky Keys                   Apaga el cartel de "Teclas Especiales" (Shift x5)
+[ X ] Disable Multiplane Overlay    Arregla parpadeos en videos/juegos (Si hay drama)
+[ X ] Modern Standby fix            Evita que las Laptops se prendan solas en la mochila
+
+[ ] Mouse Acceleration              (Desmarcar en WinUtil = Mejor aim en juegos)
+[ ] Center Taskbar Items            (Estético)
+[ ] Dark Theme for Windows          (Estético)
+[ ] Detailed BSoD                   (Muestra el texto técnico en pantallazo azul)
+[ ] Verbose Messages                (Muestra los procesos al arrancar)
+================================================================================

@@ -26,6 +26,7 @@ echo:
 
 :: Limpiar %%TEMP%% del usuario (solo contenido, no la carpeta)
 echo [1/4] Limpiando carpeta temporal de usuario...
+echo Hora de inicio: %date% %time%
 if exist "%temp%" (
     del /f /s /q "%temp%\*.*" >nul 2>&1
     for /d %%i in ("%temp%\*") do (

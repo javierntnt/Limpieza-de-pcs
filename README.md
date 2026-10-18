@@ -94,7 +94,20 @@ Además de la suite de scripts `.bat`, el repositorio incluye un motor en PowerS
 - Windows PowerShell **5.1** (viene con Windows). No requiere instalar nada.
 - Algunas tareas necesitan **administrador** (el motor lo pide automáticamente).
 
-### Cómo ejecutarlo
+### La forma fácil: doble clic en `Limpieza.bat`
+
+`Limpieza.bat` es el lanzador del motor: **doble clic y listo**. Hace falta porque a un `.ps1` Windows no lo ejecuta con doble clic, lo abre en el Bloc de notas.
+
+```bat
+Limpieza.bat                    :: menú interactivo
+Limpieza.bat -DryRun -All       :: simula todo, sin tocar el sistema
+Limpieza.bat -All               :: mantenimiento completo
+Limpieza.bat -Task 2,4          :: solo las tareas indicadas
+```
+
+La ventana queda abierta al terminar, así podés leer el resumen y la ruta del reporte antes de cerrarla.
+
+### Cómo ejecutarlo desde una consola
 
 ```powershell
 cd "Limpiesa pcs"

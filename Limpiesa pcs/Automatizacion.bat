@@ -1,4 +1,4 @@
-﻿@echo off
+@echo off
 setlocal enabledelayedexpansion
 title Herramienta de Limpieza y Optimizacion
 
@@ -153,6 +153,8 @@ echo  %Green%[S]%White% Ejecuta la tarea actual y pasa a la siguiente.
 echo  %Green%[N]%White% Omite la tarea actual y pasa a la siguiente.
 echo.
 
+call :PCINFO Before
+echo.
 echo %Green%[1/14]%White% Punto de Restauracion del Sistema...
 choice /C SN /N /M "        Ejecutar esta tarea? [S/N] : "
 if errorlevel 2 goto TT2
@@ -257,8 +259,19 @@ echo                     MANTENIMIENTO FINALIZADO
 echo.
 echo       %Green%-------------------------------------------------------------------------%White%
 echo.
+call :PCINFO After
+echo.
 choice /C:0 /N /M "%Green%        Presiona [0] para volver al menu...%White%"
 goto MENU
+
+:: =============================================================================
+:: INFORMACION DEL EQUIPO (delegada al motor PowerShell)
+:: =============================================================================
+
+:PCINFO
+if not exist "%~dp0modules\Mostrar-PcInfo.ps1" exit /B 0
+powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0modules\Mostrar-PcInfo.ps1" -Phase %1 -SnapshotPath "%~dp0logs\pc_session.json"
+exit /B 0
 
 :SALIR
 echo %Reset%

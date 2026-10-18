@@ -84,6 +84,53 @@ cd "C:\Users\USUARIO\Documents\Limpieza de pcs github\Limpieza-de-pcs\Herramient
 
 ---
 
+## ⚙️ Motor PowerShell (`Limpieza.ps1`)
+
+Además de la suite de scripts `.bat`, el repositorio incluye un motor en PowerShell que automatiza todo el flujo: **detecta el hardware** (SSD/HDD, laptop/escritorio), **decide qué tareas conviene ejecutar**, mide el sistema **antes y después**, ejecuta los `.bat` existentes como tareas y genera un **reporte HTML autocontenido** (más un JSON con los mismos datos).
+
+> Los scripts `.bat` siguen siendo los mismos: el motor solo los orquesta. No reemplaza a `Automatizacion.bat`.
+
+### Requisitos
+- Windows PowerShell **5.1** (viene con Windows). No requiere instalar nada.
+- Algunas tareas necesitan **administrador** (el motor lo pide automáticamente).
+
+### Cómo ejecutarlo
+
+```powershell
+cd "Limpiesa pcs"
+
+# Menú interactivo (igual al clásico)
+.\Limpieza.ps1
+
+# Simulación: hace todo (hardware, métricas, plan, reportes) pero NO ejecuta tareas.
+# NO requiere administrador y no modifica el sistema.
+.\Limpieza.ps1 -DryRun -All
+
+# Ejecutar todas las tareas automáticas que el plan marque como "Run"
+.\Limpieza.ps1 -All
+
+# Ejecutar solo algunas tareas por Id
+.\Limpieza.ps1 -Task 1,2,4
+```
+
+Opciones disponibles: `-Force` (ignora las omisiones por hardware/política, ej. Prefetch), `-NoReport`, `-ReportsPath`, `-LogsPath`.
+
+### Dónde quedan los resultados
+- Reportes: `Limpiesa pcs\reports\reporte_<PC>_<fecha>.html` y `.json`
+- Registros: `Limpiesa pcs\logs\limpieza_<fecha>.log`
+
+El HTML es **autocontenido** (CSS embebido, sin internet ni recursos externos) y se abre con doble clic.
+
+### Cómo correr los tests
+
+```powershell
+Invoke-Pester -Path "Limpiesa pcs\tests"
+```
+
+> **Nota sobre Pester:** los tests usan la sintaxis de **Pester 3.4** (la que viene instalada por defecto en Windows), por ejemplo `Should Be`. No hace falta instalar Pester 5.
+
+---
+
 ## ⚠️ Consideraciones Importantes
 
 ### ⚡ Requisitos

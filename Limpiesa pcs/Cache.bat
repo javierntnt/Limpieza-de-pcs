@@ -1,4 +1,4 @@
-﻿@echo off
+@echo off
 setlocal enabledelayedexpansion
 title Liberador de Espacio en Disco
 color 07
@@ -7,17 +7,18 @@ color 07
 set "_silent=0"
 for %%A in (%*) do if /i "%%A"=="/S" set "_silent=1"
 
+:: Tope de espera (segundos) para cleanmgr.
+:: Windows tiene un bug conocido: cleanmgr /sagerun se queda colgado al llegar
+:: al 100% esperando movimiento del mouse. Sin este tope, la automatizacion
+:: nunca avanza a la tarea siguiente.
+set "_cleanmgr_max_wait=90"
+
 :: Verificar permisos de Administrador
->nul 2>&1 net session
-if %errorlevel% neq 0 (
-    if "!_silent!"=="0" (
-        echo.
-        echo  [WARN] Este script requiere permisos de Administrador para acceder al registro de cleanmgr.
-        echo  Intentando ejecucion sin admin - algunas funciones pueden limitarse.
-    )
-    set "_isAdmin=0"
-) else (
+net session >nul 2>&1
+if %errorlevel% equ 0 (
     set "_isAdmin=1"
+) else (
+    set "_isAdmin=0"
 )
 
 echo:
@@ -41,52 +42,92 @@ if "!_silent!"=="0" (
 
 echo.
 
-:: Verificar si existe configuracion de Sageset (solo si hay permisos de admin)
+:: Detectar si cleanmgr ya tiene una configuracion guardada (StateFlags0001).
+:: Leer el registro NO requiere admin, por eso se detecta siempre.
 set "sagerun_configured="
-if "%_isAdmin%"=="1" (
-    for /F "skip=2 tokens=*" %%A in ('reg query "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches" 2^>nul') do (
-        reg query "%%A" /v StateFlags0001 >nul 2>&1 && set "sagerun_configured=1"
-    )
-)
+reg query "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches" /s /v StateFlags0001 >nul 2>&1
+if %errorlevel% equ 0 set "sagerun_configured=1"
 
-if not defined sagerun_configured (
-    echo:
-    echo:       ________________________________________________________________
-    echo:
-    echo:                   Primera configuracion requerida
-    echo:       ________________________________________________________________
-    echo:
-    echo  Si tienes permisos de Administrador, se abrira el Liberador de espacio
-    echo  para que configures las opciones de limpieza. Selecciona todo lo que quieras
-    echo  limpiar, apreta ACEPTAR, y despues volve a ejecutar este script.
-    echo  Si NO tienes permisos de admin, se ejecutara cleanmgr sin configuracion guardada.
-    echo:
-    if "%_isAdmin%"=="1" (
-        start cleanmgr /sageset:1
-        echo  Se abrio el Liberador de espacio para configuracion.
-        echo  Configura las opciones deseadas y apreta ACEPTAR.
-    ) else (
-        echo  No hay permisos de admin - se ejecutara cleanmgr basico sin guardar configuracion.
-    )
-    if "!_silent!"=="0" pause
-    exit /B 0
-)
+if not defined sagerun_configured goto SIN_CONFIG
+if "!_isAdmin!"=="1" goto CON_ADMIN
+goto SIN_ADMIN
 
-echo Ejecutando Liberador de espacio en disco...
-echo (Paciencia, puede tardar varios minutos)
+:: -----------------------------------------------------------------------------
+:: Caso 1: hay configuracion guardada y hay admin -> limpieza automatica
+:: -----------------------------------------------------------------------------
+:CON_ADMIN
+echo  [MODO] Configuracion guardada detectada - cleanmgr /sagerun:1
+echo  Se lanza la limpieza y se espera a que termine.
 echo.
-echo  NOTA: Si es la primera vez, el script intentara configurar cleanmgr automaticamente.
+echo  NOTA: cleanmgr puede quedarse en 100%% sin cerrarse por un bug de Windows.
+echo        Si pasa, se espera hasta %_cleanmgr_max_wait%s como maximo y se sigue
+echo        con la tarea siguiente.
+echo.
+start "" /min cleanmgr /sagerun:1
+set "_waited=0"
 
-if "%_isAdmin%"=="1" (
-    cleanmgr /sagerun:1
-) else (
+:WAIT_CLEANMGR
+tasklist /fi "imagename eq cleanmgr.exe" 2>nul | find /i "cleanmgr.exe" >nul
+if errorlevel 1 goto CLEANMGR_LISTO
+set /a "_waited=_waited+5" >nul 2>&1
+if !_waited! geq %_cleanmgr_max_wait% goto CLEANMGR_TIMEOUT
+echo   ... limpiando, esperando a cleanmgr: !_waited!s de %_cleanmgr_max_wait%s
+ping -n 6 127.0.0.1 >nul
+goto WAIT_CLEANMGR
+
+:CLEANMGR_TIMEOUT
+echo.
+echo  [WARN] cleanmgr sigue abierto tras %_cleanmgr_max_wait%s.
+echo         La limpieza ya termino; se continua con la tarea siguiente.
+echo         Podes cerrar la ventana de cleanmgr cuando quieras.
+goto LISTO
+
+:CLEANMGR_LISTO
+echo.
+echo  [OK] cleanmgr finalizo.
+goto LISTO
+
+:: -----------------------------------------------------------------------------
+:: Caso 2: hay configuracion guardada pero NO hay admin
+:: -----------------------------------------------------------------------------
+:SIN_ADMIN
+echo  [WARN] Hay configuracion guardada, pero no hay permisos de Administrador.
+if "!_silent!"=="0" (
+    echo         Se abrira el Liberador en modo basico.
+    echo.
     cleanmgr
+) else (
+    echo         En modo automatico se omite para no bloquear la secuencia.
+    echo         Ejecuta este script como Administrador para limpiar el disco.
 )
+goto LISTO
 
+:: -----------------------------------------------------------------------------
+:: Caso 3: no hay configuracion guardada de cleanmgr
+:: -----------------------------------------------------------------------------
+:SIN_CONFIG
+echo  [MODO] No hay configuracion guardada de cleanmgr.
+if "!_isAdmin!"=="1" (
+    echo         Se abre la ventana de configuracion. Marca lo que quieras limpiar
+    echo         y apreta ACEPTAR. Despues volve a ejecutar esta tarea.
+    echo.
+    start "" cleanmgr /sageset:1
+) else (
+    echo         Sin permisos de Administrador no se puede configurar cleanmgr.
+    echo         Ejecuta este script como Administrador para configurarlo.
+)
+goto LISTO
+
+:: -----------------------------------------------------------------------------
+:: Cierre - siempre retorna al flujo (en modo automatico avanza a la siguiente)
+:: -----------------------------------------------------------------------------
+:LISTO
 echo:
 echo:       ________________________________________________________________
 echo:
 echo:                   Liberador de espacio completado
 echo:       ________________________________________________________________
+echo.
+echo  Tarea finalizada. Continuando...
 if "!_silent!"=="0" pause
 exit /B 0

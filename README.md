@@ -33,6 +33,7 @@ Este repositorio contiene dos carpetas principales con herramientas de mantenimi
 | 11 | `chris_titus.bat` | Lanza la herramienta WinUtil de Chris Titus Tech |
 | 12 | `activar_windows.bat` | Activación de Windows usando scripts MAS (requiere internet) |
 | 13 | `activar_wsearch.bat` | Activa Windows Search/Indexación |
+| 14 | `geek_uninstaller.bat` | Lanza Geek Uninstaller, desinstalador portable que elimina restos del registro y archivos |
 
 **Documentación incluida:**
 - `README.md` — Esta guía completa
@@ -52,6 +53,7 @@ Este repositorio contiene dos carpetas principales con herramientas de mantenimi
 | **RAMMap** | Herramienta Sysinternals para analizar el uso de memoria en tiempo real. Muestra qué archivos y datos están ocupando memoria física. |
 | **VideoDownloaderPro** | Descargador de videos basado en Python. Ideal para descargar videos de YouTube, Vimeo y otras plataformas. |
 | **AnyDesk.exe** | Control remoto de PCs. Permite acceder y controlar otros ordenadores en la red. |
+| **Geek Uninstaller** | Desinstalador portable de programas. Borra restos del registro y de archivos que deja el desinstalador de Windows. Se lanza con `Limpiesa pcs\geek_uninstaller.bat`. |
 
 ---
 

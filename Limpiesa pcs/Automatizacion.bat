@@ -66,6 +66,7 @@ echo       ---------------------------------------------------------------------
 echo.
 echo               [13] WinUtil (Chris Titus)      - Herramienta Externa
 echo               [14] Activar Windows/Office     - MAS
+echo               [15] Geek Uninstaller          - Desinstalador Portable
 echo.
 echo       -------------------------------------------------------------------------
 echo.
@@ -74,7 +75,7 @@ echo               [0] Salir
 echo.
 echo       -------------------------------------------------------------------------
 echo.
-set /p "_opt=      %Green%Elige una opcion usando tu teclado [1,2...14,T,0] : %White%"
+set /p "_opt=      %Green%Elige una opcion usando tu teclado [1,2...15,T,0] : %White%"
 
 if /i "%_opt%"=="1"  goto OP1
 if /i "%_opt%"=="2"  goto OP2
@@ -90,6 +91,7 @@ if /i "%_opt%"=="11" goto OP11
 if /i "%_opt%"=="12" goto OP12
 if /i "%_opt%"=="13" goto OP13
 if /i "%_opt%"=="14" goto OP14
+if /i "%_opt%"=="15" goto OP15
 if /i "%_opt%"=="T"  goto OPTODO
 if /i "%_opt%"=="0"  goto SALIR
 goto MENU
@@ -126,6 +128,8 @@ cls & call verificar_sistema.bat & goto VOLVER
 cls & call chris_titus.bat & goto VOLVER
 :OP14
 cls & call activar_windows.bat & goto VOLVER
+:OP15
+cls & call geek_uninstaller.bat & goto VOLVER
 
 :VOLVER
 @echo off

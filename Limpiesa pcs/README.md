@@ -20,6 +20,7 @@ Suite de scripts batch para mantenimiento y optimización de sistemas Windows. D
 | 9 | `optimizar_rendimiento.bat` | Optimización avanzada: background apps, Superfetch, DISM, hibernación, servicios extra, DNS |
 | 10 | `verificar_sistema.bat` | Verifica archivos del sistema (SFC /SCANNOW) y busca/instala actualizaciones de programas con Winget |
 | 11 | `chris_titus.bat` | Lanza la herramienta WinUtil de Chris Titus Tech |
+| 12 | `geek_uninstaller.bat` | Lanza Geek Uninstaller, desinstalador portable que borra restos del registro y archivos |
 | — | `Automatizacion.bat` | **Menú principal** — orquesta todos los scripts anteriores |
 
 ## 🚀 Cómo usar
@@ -130,6 +131,7 @@ Limpiesa pcs/
 ├── optimizar_rendimiento.bat   # Optimización avanzada de rendimiento
 ├── verificar_sistema.bat       # SFC /SCANNOW y Windows Update
 ├── chris_titus.bat             # Lanzador de WinUtil
+├── geek_uninstaller.bat        # Lanzador de Geek Uninstaller
 ├── README.md                   # Esta guía
 └── ControlDePcsDistancia/      # Herramientas de control remoto
 ```
